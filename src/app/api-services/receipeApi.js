@@ -1,6 +1,7 @@
+
 import axios from "axios";
 
-const API = "http://localhost:3000/api/food";
+const API = "/api/food";
 
 export const getReceipes = async () => {
     try {
@@ -15,7 +16,13 @@ export const getReceipes = async () => {
 };
 
 export const getSingleReceipe = async (id) => {
-    const res = await axios.get(`${API}/${id}`);
+    try {
+        const res = await axios.get(`${API}/${id}`);
 
-    return res.data.food;
+        return res.data.food;
+
+    } catch (error) {
+        console.log("Single Recipe Error:", error.message);
+        return null;
+    }
 };

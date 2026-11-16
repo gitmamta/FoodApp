@@ -1,19 +1,29 @@
 
-import { getReceipes } from "../api-services/receipeApi";
+import connectDB from "@/lib/db";
+import Food from "@/models/Food";
 import Link from "next/link";
 
 export default async function Recipe() {
     let data = [];
 
     try {
-        data = await getReceipes();
+        await connectDB();
+
+        const foods = await Food.find({
+            foodType: "Veg"
+        }).lean();
+
+        data = foods.map((item) => ({
+            ...item,
+            _id: item._id.toString()
+        }));
+
     } catch (error) {
-        console.log("Recipe Fetch Error:", error);
+        console.error("Recipe Fetch Error:", error);
     }
 
     return (
         <div className="p-5">
-
             <h1 className="text-3xl font-bold text-center mb-6">
                 Recipe Page
             </h1>
@@ -23,16 +33,12 @@ export default async function Recipe() {
                     No Food Data Found!
                 </h2>
             ) : (
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-
                     {data.map((item) => (
-
                         <div
                             key={item._id}
                             className="border rounded-xl p-4 shadow-md"
                         >
-
                             <img
                                 src={item.image || "/placeholder.png"}
                                 alt={item.name}
@@ -61,14 +67,10 @@ export default async function Recipe() {
                             >
                                 View
                             </Link>
-
                         </div>
-
                     ))}
-
                 </div>
             )}
-
         </div>
     );
 }

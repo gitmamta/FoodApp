@@ -1,25 +1,77 @@
+
 import Link from "next/link";
-export default function ProductCard({product}) {
-  return (
-    <>
-      <div className=" w-full max-w-sm shadow-md bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-shadow ">
-        <img src={product.image} alt={product.name} className="h-56 w-full object-contain" />
-        <div className="p-4">
 
-        <h1 className="text-2xl text-center">{product.name}</h1>
-        <p className="text-sm text-gray-500 text-center mt-2">
-          {product.description}
-        </p>
+export default function ProductCard({ product }) {
+    return (
+        <article className="w-full max-w-sm bg-white rounded-2xl overflow-hidden
+            shadow-md transition-all duration-300
+            hover:-translate-y-2 hover:shadow-xl group">
 
-        <div className="flex items-center justify-between mt-4 border-t border-gray-200">
-          <span className="text-green-700 text-xl font-bold">{product.price?`${product.price}`:""}</span>
-          <Link href={`/recipe/${product.id}`} className="font-bold sm:text-base rounded-md sm:px-4 text-white px-3 py-2 bg-blue-600 mt-3 transition-all">View</Link>
-          <button className="text-xl hover:bg-green-400 rounded-lg px-4 py-2">+Add</button>
+            {/* Image */}
+            <div className="overflow-hidden">
+                <img
+                    src={product.image || "/placeholder.png"}
+                    alt={product.name}
+                    className="w-full h-56 object-cover
+                    transition-transform duration-500
+                    group-hover:scale-110"
+                />
+            </div>
 
-        </div>
-      </div>
-      
-      </div>
-    </>
-  );
+            {/* Content */}
+            <div className="p-5">
+
+                <h2 className="text-xl font-bold text-gray-800 truncate">
+                    {product.name}
+                </h2>
+
+                <p className="text-sm text-gray-500 mt-2 line-clamp-2 leading-6">
+                    {product.description}
+                </p>
+
+                {/* Price */}
+                <div className="flex items-center justify-between mt-4 pt-4
+                    border-t border-gray-100">
+
+                    <span className="text-xl font-extrabold text-emerald-600">
+                        ₹{product.price ?? "N/A"}
+                    </span>
+
+                    {product.category && (
+                        <span className="text-xs font-semibold text-orange-700
+                            bg-orange-100 px-3 py-1 rounded-full">
+                            {product.category}
+                        </span>
+                    )}
+
+                </div>
+
+                {/* Buttons */}
+                <div className="flex gap-3 mt-5">
+
+                    <Link
+                        href={`/recipe/${product._id}`}
+                        className="flex-1 text-center bg-orange-500
+                        hover:bg-orange-600 text-white font-semibold
+                        py-3 rounded-xl transition-all duration-300
+                        hover:shadow-md active:scale-95"
+                    >
+                        View Details
+                    </Link>
+
+                    <button
+                        type="button"
+                        className="flex-1 bg-emerald-600 hover:bg-emerald-700
+                        text-white font-semibold py-3 rounded-xl
+                        transition-all duration-300
+                        hover:shadow-md active:scale-95"
+                    >
+                        + Add
+                    </button>
+
+                </div>
+
+            </div>
+        </article>
+    );
 }

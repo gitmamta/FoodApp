@@ -1,11 +1,11 @@
 
-import axios from "axios";
 
-const API = "/api/food";
+import api from "../../lib/axios";
+
 
 export const getReceipes = async () => {
     try {
-        const res = await axios.get(API);
+        const res = await api.get();
 
         return res.data.foods || [];
 
@@ -17,7 +17,7 @@ export const getReceipes = async () => {
 
 export const getSingleReceipe = async (id) => {
     try {
-        const res = await axios.get(`${API}/${id}`);
+        const res = await api.get(`/${id}`);
 
         return res.data.food;
 

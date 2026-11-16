@@ -1,99 +1,170 @@
+
 "use client";
+
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 
-export default function Banner(){
-    const[modal,setModel]=useState(false);
-    let enquireModel=()=>{
-        console.log("model is clicked");
-    }
+export default function Banner() {
+    const [modal, setModal] = useState(false);
 
-    return(
-    <>
-    
+    const closeModal = () => setModal(false);
 
+    return (
+        <>
+            {/* Enquiry Modal */}
+            {modal && (
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center
+                    bg-black/60 backdrop-blur-sm p-4"
+                    onClick={closeModal}
+                >
+                    <div
+                        className="w-full max-w-md bg-white rounded-2xl p-6 sm:p-8
+                        shadow-2xl relative
+                        transition-all duration-300"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Modal Header */}
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-2xl font-bold text-green-800">
+                                Enquire Now
+                            </h2>
 
+                            <button
+                                type="button"
+                                onClick={closeModal}
+                                aria-label="Close enquiry form"
+                                className="text-gray-500 hover:text-red-500
+                                hover:rotate-90 transition-all duration-300"
+                            >
+                                <IoClose size={28} />
+                            </button>
+                        </div>
 
+                        {/* Form */}
+                        <form className="space-y-4">
 
+                            <div>
+                                <label htmlFor="name"
+                                    className="block text-sm font-semibold text-gray-700 mb-1">
+                                    Name
+                                </label>
 
+                                <input
+                                    type="text"
+                                    id="name"
+                                    placeholder="Enter your name"
+                                    className="w-full border border-gray-300 rounded-lg
+                                    p-3 outline-none focus:border-green-600
+                                    focus:ring-2 focus:ring-green-100 transition"
+                                />
+                            </div>
 
-{modal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+                            <div>
+                                <label htmlFor="email"
+                                    className="block text-sm font-semibold text-gray-700 mb-1">
+                                    Email
+                                </label>
 
-    <div className="w-[350px] bg-white p-6 rounded shadow-md">
+                                <input
+                                    type="email"
+                                    id="email"
+                                    placeholder="Enter your email"
+                                    className="w-full border border-gray-300 rounded-lg
+                                    p-3 outline-none focus:border-green-600
+                                    focus:ring-2 focus:ring-green-100 transition"
+                                />
+                            </div>
 
-      <h1 className="font-bold text-xl relative mb-6">
-        Enquire Now
+                            <div>
+                                <label htmlFor="phone"
+                                    className="block text-sm font-semibold text-gray-700 mb-1">
+                                    Phone Number
+                                </label>
 
-        <button
-          type="button"
-          onClick={() => setModel(false)}
-          className="absolute top-0 right-0 text-2xl"
-        >
-          <IoClose />
-        </button>
-      </h1>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    placeholder="Enter your phone number"
+                                    className="w-full border border-gray-300 rounded-lg
+                                    p-3 outline-none focus:border-green-600
+                                    focus:ring-2 focus:ring-green-100 transition"
+                                />
+                            </div>
 
-      <form className="space-y-4 bg-white rounded-xl shadow-lg">
+                            <div>
+                                <label htmlFor="message"
+                                    className="block text-sm font-semibold text-gray-700 mb-1">
+                                    Message
+                                </label>
 
-        <label htmlFor="name" className="text-sm block">
-          Name
-        </label>
+                                <textarea
+                                    id="message"
+                                    rows="4"
+                                    placeholder="Write your message..."
+                                    className="w-full border border-gray-300 rounded-lg
+                                    p-3 outline-none resize-none
+                                    focus:border-green-600 focus:ring-2
+                                    focus:ring-green-100 transition"
+                                />
+                            </div>
 
-        <input
-          type="text"
-          id="name"
-          className="w-full border p-2 rounded"
-        />
+                            <button
+                                type="submit"
+                                className="w-full bg-green-700 hover:bg-green-800
+                                text-white font-bold py-3 rounded-lg
+                                transition-all duration-300 hover:shadow-lg
+                                active:scale-95"
+                            >
+                                Submit Enquiry
+                            </button>
 
-        <label htmlFor="email" className="text-sm block">
-          Email
-        </label>
+                        </form>
+                    </div>
+                </div>
+            )}
 
-        <input
-          type="email"
-          id="email"
-          className="w-full border p-2 rounded"
-        />
-<label htmlFor="phone" className="text-sm block">
-          Phone no
-        </label>
+            {/* Hero Banner */}
+            <section className="relative min-h-[450px] sm:min-h-[550px]
+                bg-[url('/images/bannerimage.png')] bg-cover bg-center">
 
-        <input
-          type="number"
-          id="phone"
-          className="w-full border p-2 rounded"
-        />
-        <label htmlFor="message">Message</label>
-        <textarea name="message" id="message" rows="4" placeholder="type your message" className="w-full border rounded"></textarea>
+                {/* Background Overlay */}
+                <div className="absolute inset-0 bg-black/40" />
 
-      </form>
+                <div className="relative z-10 max-w-7xl mx-auto min-h-[450px]
+                    sm:min-h-[550px] flex flex-col items-center
+                    justify-center gap-5 px-4 text-center">
 
-    </div>
-  </div>
-)}
+                    <h1 className="text-white text-3xl sm:text-4xl md:text-5xl
+                        font-extrabold transition-transform duration-300
+                        hover:scale-105">
+                        Fresh • Healthy • Homemade
+                    </h1>
 
+                    <p className="text-green-200 text-2xl sm:text-3xl md:text-4xl
+                        font-bold">
+                        Discover Delicious Recipes
+                    </p>
 
+                    <p className="text-white text-base sm:text-xl md:text-2xl
+                        max-w-2xl leading-relaxed">
+                        Find your favorite dishes and make every meal special.
+                    </p>
 
+                    <button
+                        type="button"
+                        onClick={() => setModal(true)}
+                        className="mt-3 bg-green-600 hover:bg-green-700
+                        text-white font-bold px-8 py-3 rounded-xl
+                        shadow-lg transition-all duration-300
+                        hover:-translate-y-1 hover:shadow-2xl
+                        active:scale-95"
+                    >
+                        Enquire Now →
+                    </button>
 
-    
-<section className="h-[500px] bg-[url('/images/bannerimage.png')] bg-cover bg-center">
-<div className="max-w-[1280px] flex flex-col  gap-4 items-center justify-center mx-auto h-full px-4 hover:-translate-y-1 cursor-pointer">
-<h1 className="text-center text-green-800 sm:text-3xl md:text-4xl ">Fresh • Healthy • Homemade</h1>
-<p className="text-center text-amber-500 sm:text-3xl md:text-4xl">Discover Delicious Recipes</p>
-<p className="text-center text-stone-400 sm:text-2xl md:text-4xl">Find your favorite dishes and make every meal special.</p>
-<button className="bg-white max-w-xs p-3 px-6 py-3 rounded-lg hover:bg-green-500" onClick={()=>setModel(true)}>Enquire Now</button>
-
-</div>
- 
-    </section>
-    
-    
-    
-    
-    
-    
-    
-    
-    </>)
+                </div>
+            </section>
+        </>
+    );
 }

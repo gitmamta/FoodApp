@@ -4,7 +4,8 @@ import ProductCard from "../common/ProductCard";
 
 export default async function LatestProduct() {
     const data = await getReceipes();
-    const latestRecipes = data.slice(0, 4);
+    // const latestRecipes = data.slice(0, 4);
+    const latestRecipes = (Array.isArray(data) ? data : data?.recipes || data?.data || []).slice(0, 4);
 
     return (
         <section className="bg-green-50 py-12 px-4 sm:px-8">

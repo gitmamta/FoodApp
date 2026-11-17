@@ -4,40 +4,35 @@ import ProductCard from "../common/ProductCard";
 
 export default async function LatestProduct() {
     let latestRecipes = [];
-    let errorMessage = "";
 
     try {
         const data = await getReceipes();
 
-        console.log("PRODUCTION DATA:", data);
-        console.log("DATA TYPE:", Array.isArray(data));
-        console.log("TOTAL RECIPES:", data?.length);
-
-        latestRecipes = Array.isArray(data)
-            ? data.slice(-4).reverse()
-            : [];
-
-        console.log("SELECTED RECIPES:", latestRecipes);
-        console.log("SELECTED COUNT:", latestRecipes.length);
+        latestRecipes = data
+            .sort((a, b) =>
+                new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+            )
+            .slice(0, 4);
 
     } catch (error) {
-        errorMessage = error.message;
-        console.error("LATEST PRODUCT ERROR:", error);
+        console.error("Latest Recipes Error:", error);
     }
 
     return (
         <section className="bg-green-50 py-12 px-4 sm:px-8">
             <div className="max-w-7xl mx-auto">
-                <h1 className="text-3xl sm:text-4xl font-extrabold text-green-800 text-center mb-6">
-                    Latest Recipes
-                </h1>
+                <div className="text-center mb-10">
+                    <h1 className="text-3xl sm:text-4xl font-extrabold text-green-800">
+                        Latest Recipes
+                    </h1>
 
-                <p className="text-center text-red-600 mb-4">
-                    Debug: {errorMessage || `Received ${latestRecipes.length} recipes`}
-                </p>
+                    <p className="text-gray-500 mt-3 text-base sm:text-lg">
+                        Discover our delicious and freshly prepared recipes.
+                    </p>
+                </div>
 
                 {latestRecipes.length === 0 ? (
-                    <p className="text-center text-gray-500">
+                    <p className="text-center text-gray-500 text-lg">
                         No recipes available right now!
                     </p>
                 ) : (
